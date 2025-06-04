@@ -24,9 +24,13 @@ public class GarageController {
     private GarageService garageService;
     
     @GetMapping ("/forsale")
-    public List<Veiculo> findAll(){
-        List<Veiculo> result = garageService.findAll();
-        return result;  
+    public ResponseEntity<List<VeiculoMinDTO>> findAll(){
+        List<VeiculoMinDTO> result = garageService.findAll();
+        if(result.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(result);
+        }  
     }
     
     @GetMapping ("/id/{id}")
@@ -45,6 +49,17 @@ public class GarageController {
      public ResponseEntity<List<VeiculoMinDTO>> findByCorIgnoreCase(@PathVariable String cor){
      
         List<VeiculoMinDTO> result = garageService.findByCor(cor);
+        if(result.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(result);
+        }
+    }
+    
+      @GetMapping("/ano/{ano}")
+     public ResponseEntity<List<VeiculoMinDTO>> findByAnoIgnoreCase(@PathVariable int ano){
+     
+        List<VeiculoMinDTO> result = garageService.findByAno(ano);
         if(result.isEmpty()){
             return ResponseEntity.notFound().build();
         }else{

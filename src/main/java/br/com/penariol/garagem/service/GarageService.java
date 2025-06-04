@@ -21,9 +21,12 @@ public class GarageService {
     @Autowired
     private GarageRepository garageRepository;
     
-    public List<Veiculo> findAll(){
-        List<Veiculo> result = garageRepository.findAll();
-        return result;
+    public List<VeiculoMinDTO> findAll(){
+        List<Veiculo> resultVeiculo = garageRepository.findAll();
+        
+        List<VeiculoMinDTO> resultDTO = resultVeiculo.stream().map(x -> new VeiculoMinDTO(x)).toList();
+        
+        return resultDTO;
     }
    
     public Veiculo findById (long id) {
@@ -33,6 +36,15 @@ public class GarageService {
     
     public List<VeiculoMinDTO> findByCor(String cor){
         List<Veiculo> resultVeiculo = garageRepository.findByCorIgnoreCase(cor);
+        
+        List<VeiculoMinDTO> resultDTO = resultVeiculo.stream().map(x -> new VeiculoMinDTO(x)).toList();
+        
+        return resultDTO;
+        
+    }
+    
+    public List<VeiculoMinDTO> findByAno(int ano){
+        List<Veiculo> resultVeiculo = garageRepository.findByAno(ano);
         
         List<VeiculoMinDTO> resultDTO = resultVeiculo.stream().map(x -> new VeiculoMinDTO(x)).toList();
         
