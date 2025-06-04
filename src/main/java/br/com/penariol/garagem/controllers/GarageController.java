@@ -8,7 +8,9 @@ import br.com.penariol.garagem.entities.Veiculo;
 import br.com.penariol.garagem.service.GarageService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,6 +25,19 @@ public class GarageController {
     @GetMapping ("/forsale")
     public List<Veiculo> findAll(){
         List<Veiculo> result = garageService.findAll();
-        return result;
+        return result;  
+    }
+    
+    @GetMapping ("/id/{id}")
+    public ResponseEntity<Veiculo> findById(@PathVariable long id){
+      Veiculo result = garageService.findById(id);
+      
+       if (result == null){
+            return ResponseEntity.notFound().build();
+        }
+        else{
+            return ResponseEntity.ok(result);
+        } 
+  
     }
 }

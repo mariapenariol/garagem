@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface GarageRepository extends JpaRepository<Veiculo, Long>{
     
+    Veiculo findById(long id);
 }

@@ -18,11 +18,15 @@ import org.springframework.stereotype.Service;
 public class GarageService {
 
     @Autowired
-    private GarageRepository garegeRepository;
+    private GarageRepository garageRepository;
     
     public List<Veiculo> findAll(){
-        List<Veiculo> result = garegeRepository.findAll();
+        List<Veiculo> result = garageRepository.findAll();
         return result;
     }
    
+    public Veiculo findById (long id) {
+     Veiculo result = garageRepository.findById(id);
+      return result;
+    }
 }
