@@ -4,6 +4,7 @@
  */
 package br.com.penariol.garagem.service;
 
+import br.com.penariol.garagem.DTO.VeiculoMinDTO;
 import br.com.penariol.garagem.entities.Veiculo;
 import br.com.penariol.garagem.repositories.GarageRepository;
 import java.util.List;
@@ -28,5 +29,14 @@ public class GarageService {
     public Veiculo findById (long id) {
      Veiculo result = garageRepository.findById(id);
       return result;
+    }
+    
+    public List<VeiculoMinDTO> findByCor(String cor){
+        List<Veiculo> resultVeiculo = garageRepository.findByCorIgnoreCase(cor);
+        
+        List<VeiculoMinDTO> resultDTO = resultVeiculo.stream().map(x -> new VeiculoMinDTO(x)).toList();
+        
+        return resultDTO;
+        
     }
 }

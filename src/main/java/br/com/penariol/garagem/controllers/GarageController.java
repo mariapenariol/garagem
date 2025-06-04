@@ -4,6 +4,7 @@
  */
 package br.com.penariol.garagem.controllers;
 
+import br.com.penariol.garagem.DTO.VeiculoMinDTO;
 import br.com.penariol.garagem.entities.Veiculo;
 import br.com.penariol.garagem.service.GarageService;
 import java.util.List;
@@ -38,6 +39,17 @@ public class GarageController {
         else{
             return ResponseEntity.ok(result);
         } 
-  
     }
+    
+     @GetMapping("/cor/{cor}")
+     public ResponseEntity<List<VeiculoMinDTO>> findByCorIgnoreCase(@PathVariable String cor){
+     
+        List<VeiculoMinDTO> result = garageService.findByCor(cor);
+        if(result.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(result);
+        }
+    }
+    
 }
